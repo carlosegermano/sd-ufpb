@@ -3,6 +3,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class SimpleTCPServer {
     private ServerSocket serverSocket;
@@ -24,15 +25,23 @@ public class SimpleTCPServer {
             System.out.println("[S3] Conexão estalecida com cliente:" + socket.getRemoteSocketAddress());
             input = new DataInputStream(socket.getInputStream());
             output = new DataOutputStream(socket.getOutputStream());
-            
-            // Recebe mensagem do cliente do canal de entrada
+
+            Scanner scanner = new Scanner(System.in);
             String msg = input.readUTF();
             System.out.println("[S4] Mensagem recebida de " + socket.getRemoteSocketAddress() + ": " + msg);
-            
-            // Envia resposta ao cliente no canal de saida
-            String reply = msg.toUpperCase();
-            output.writeUTF(reply);
-            System.out.println("[S5] Mensagem enviada para " + socket.getRemoteSocketAddress() + ": " + reply);
+            System.out.print("Digite uma mensagem: ");
+            while (scanner.hasNext()) {
+
+                String reply = scanner.nextLine();
+                output.writeUTF(reply);
+                System.out.println("[S5] Mensagem enviada para " + socket.getRemoteSocketAddress() + ": " + reply);
+                System.out.println("Aguardando mensagem...");
+                // Recebe mensagem do cliente do canal de entrada
+                msg = input.readUTF();
+                System.out.println("[S4] Mensagem recebida de " + socket.getRemoteSocketAddress() + ": " + msg);
+                System.out.print("Digite uma mensagem: ");
+            }
+
         }
     }
 
