@@ -20,6 +20,8 @@ Investigue os códigos dos clientes e servidores TCP e UDP. Em seguida, execute 
 O código está localizado no diretório `src` e os executáveis no diretório `bin`. Se precisar recompilar o código na interface de linha de comando, entre no diretório raíz do projeto e execute o comando abaixo:
 
 `javac src/* -d bin`
+Ou
+`javac -cp . src/*.java -d bin`
 
 OBS 1: se os comandos acima não funcionarem no Windows, tente substituir a barra (`/`) por contra-barra (`\`). Vocês também podem usar alguma IDE da preferência de vocês.
 
